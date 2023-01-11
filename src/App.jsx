@@ -1,44 +1,33 @@
+import { useState, useEffect } from "react";
+import { Router, Switch, Route } from "wouter";
 import ThreeCanvas from "./ThreeCanvas";
+import Screen from "./Screen";
 import "./App.css";
+import { useLocation } from "wouter";
 
 function App() {
+    const [location, setLocation] = useLocation();
+    const [text3dVisible, setText3dVisible] = useState(false);
+
+    useEffect(() => {
+        if (location === "/") {
+            setText3dVisible(true);
+        } else if (text3dVisible) {
+            setText3dVisible(false);
+        }
+    }, [location]);
+
     return (
         <div className="App">
-            <ThreeCanvas />
-            <div className="overlay">
-                <div className="bar">
-                    <a href="#">Prosperity Pathways</a>
-                    <div className="menu">
-                        <span>About</span>
-                        <span>Programs</span>
-                        <span>Donate</span>
-                        <span>Contact</span>
-                    </div>
-                </div>
-                <div className="bar">
-                    <div>
-                        <p className="tilted">beyondtheScreen</p>
-                        <p style={{ marginLeft: "40px" }}>Saad Amir</p>
-                    </div>
-                    <p>Socials</p>
-                </div>
-            </div>
+            <Router />
+            <Switch />
+            <Route exact path="/"></Route>
+            <Switch />
+            <Router />
+            <ThreeCanvas text3dVisible={text3dVisible} />
+            <Screen />
         </div>
     );
 }
 
 export default App;
-/*
-
-<div class="overlay">
-                <a href="#">
-                    <b>Prosperity Pathways</b>
-                </a>
-                <a class="right" href="https://codesandbox.io/s/baked-ao-f5sgi">
-                    /csb
-                </a>
-
-                <h2>Saad Amir | beyondtheScreen</h2>
-            </div>
-
-            */
