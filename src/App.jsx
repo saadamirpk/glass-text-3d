@@ -1,36 +1,28 @@
 import { react } from "react";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import ThreeCanvas from "./ThreeCanvas";
 import Screen from "./Screen";
 import About from "./Pages/About";
 import Programs from "./Pages/Programs";
+import { AnimatePresence } from "framer-motion";
 import "./App.css";
 
 function App() {
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            element: (
-                <div className="App">
-                    <Outlet />
-                    <ThreeCanvas />
-                    <Screen />
-                </div>
-            ),
-            children: [
-                {
-                    path: "/about",
-                    element: <About />,
-                },
-                {
-                    path: "/programs",
-                    element: <Programs />,
-                },
-            ],
-        },
-    ]);
+    const location = useLocation();
 
-    return <RouterProvider router={router} />;
+    return (
+        <div className="App">
+            <AnimatePresence mode="wait">
+                <Routes location={location} key={location.pathname}>
+                    <Route path="/" />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/programs" element={<Programs />} />
+                </Routes>
+            </AnimatePresence>
+            <ThreeCanvas />
+            <Screen />
+        </div>
+    );
 }
 
 export default App;
