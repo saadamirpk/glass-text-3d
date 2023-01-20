@@ -37,9 +37,9 @@ export default function TextContent({ text3dVisible }) {
                     [materialRef.current, materialRef2.current],
                     { opacity: 0 },
                     {
-                        delay: 1,
+                        delay: 0.5,
                         opacity: 1,
-                        duration: 2.5,
+                        duration: 1.5,
                         ease: "back.out(2)",
                     }
                 );
@@ -50,20 +50,21 @@ export default function TextContent({ text3dVisible }) {
                     },
                     {
                         y: 0,
-                        duration: 2.5,
+                        duration: 1.5,
                         ease: "back.out(2)",
-                        delay: 1,
+                        delay: 0.5,
                     }
                 );
-            }
-            {
+            } else {
                 gsap.to([materialRef.current, materialRef2.current], {
                     opacity: 0,
+                    duration: 0.3,
+                    ease: "power3.out",
                 });
                 gsap.to(ref.current.position, {
                     y: -5,
-                    duration: 1,
-                    ease: "power1.out",
+                    duration: 0.3,
+                    ease: "power3.out",
                 });
             }
         }
@@ -145,20 +146,19 @@ export default function TextContent({ text3dVisible }) {
                     <meshPhysicalMaterial
                         ref={materialRef2}
                         emissive={"#ff9064"}
-                        emissiveIntensity={1}
-                        reflectivity={0.5}
+                        emissiveIntensity={0.8}
+                        reflectivity={0.1}
                         thickness={5}
-                        roughness={0.5}
+                        roughness={0.1}
                         clearcoat={1}
-                        clearcoatRoughness={0.05}
-                        transmission={0.9}
+                        clearcoatRoughness={0}
+                        transmission={1}
                         ior={1.25}
                         opacity={0}
                         transparent={true}
                     />
                 ) : (
                     <meshLambertMaterial
-                        ref={materialRef2}
                         color={"black"}
                         opacity={0}
                         transparent={true}

@@ -1,33 +1,36 @@
-import { useState, useEffect } from "react";
-import { Router, Switch, Route } from "wouter";
+import { react } from "react";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import ThreeCanvas from "./ThreeCanvas";
 import Screen from "./Screen";
+import About from "./Pages/About";
+import Programs from "./Pages/Programs";
 import "./App.css";
-import { useLocation } from "wouter";
 
 function App() {
-    const [location, setLocation] = useLocation();
-    const [text3dVisible, setText3dVisible] = useState(false);
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: (
+                <div className="App">
+                    <Outlet />
+                    <ThreeCanvas />
+                    <Screen />
+                </div>
+            ),
+            children: [
+                {
+                    path: "/about",
+                    element: <About />,
+                },
+                {
+                    path: "/programs",
+                    element: <Programs />,
+                },
+            ],
+        },
+    ]);
 
-    useEffect(() => {
-        if (location === "/") {
-            setText3dVisible(true);
-        } else if (text3dVisible) {
-            setText3dVisible(false);
-        }
-    }, [location]);
-
-    return (
-        <div className="App">
-            <Router />
-            <Switch />
-            <Route exact path="/"></Route>
-            <Switch />
-            <Router />
-            <ThreeCanvas text3dVisible={text3dVisible} />
-            <Screen />
-        </div>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;

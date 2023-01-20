@@ -1,52 +1,61 @@
 import React from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "react-router-dom";
 
 const Screen = () => {
-    const [location, setLocation] = useLocation();
+    const location = useLocation();
 
     return (
         <div className="overlay">
             <div className="bar">
-                <a onClick={() => setLocation("/")}>Prosperity Pathways</a>
+                <Link to={"/"}>Prosperity Pathways</Link>
 
                 <div className="menu">
-                    <span
-                        onClick={() => setLocation("/about")}
-                        className={location === "/about" ? "active" : ""}
-                    >
-                        About
-                    </span>
-
-                    <span
-                        onClick={() => setLocation("/programs")}
-                        className={location === "/programs" ? "active" : ""}
-                    >
-                        Programs
-                    </span>
-
-                    <span
-                        onClick={() => setLocation("/donate")}
-                        className={location === "/donate" ? "active" : ""}
-                    >
-                        Donate
-                    </span>
-
-                    <span
-                        onClick={() => setLocation("/contact")}
-                        className={location === "/contact" ? "active" : ""}
-                    >
-                        Contact
-                    </span>
+                    <Link to={"about"}>
+                        <span
+                            className={
+                                location.pathname === "about" ? "active" : ""
+                            }
+                        >
+                            About
+                        </span>
+                    </Link>
+                    <Link to={"programs"}>
+                        <span
+                            className={
+                                location.pathname === "programs" ? "active" : ""
+                            }
+                        >
+                            Programs
+                        </span>
+                    </Link>
+                    <Link to={"donate"}>
+                        <span
+                            className={
+                                location.pathname === "donate" ? "active" : ""
+                            }
+                        >
+                            Donate
+                        </span>
+                    </Link>
+                    <Link to={"contact"}>
+                        <span
+                            className={
+                                location.pathname === "contact" ? "active" : ""
+                            }
+                        >
+                            Contact
+                        </span>
+                    </Link>
                 </div>
             </div>
-            {location === "/" ? (
+            {/* location.pathname === "/" ? (
                 <div className="bar fade">
                     <p>Saad Amir</p>
                     <p>Socials</p>
                 </div>
             ) : (
                 ""
-            )}
+            ) */}
         </div>
     );
 };

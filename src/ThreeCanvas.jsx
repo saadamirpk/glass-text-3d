@@ -1,8 +1,19 @@
+import { react, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import TextContent from "./TextContent";
 import PlusModel from "./PlusModel";
+import { useLocation } from "react-router-dom";
 
-export default function ThreeCanvas({ text3dVisible }) {
+export default function ThreeCanvas() {
+    let location = useLocation();
+    const [text3dVisible, setText3dVisible] = useState(false);
+    useEffect(() => {
+        if (location.pathname === "/") {
+            setText3dVisible(true);
+        } else if (text3dVisible) {
+            setText3dVisible(false);
+        }
+    }, [location]);
     return (
         <>
             <Canvas camera={{ position: [0, 0, 10] }}>
