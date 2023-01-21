@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { MdEmail, MdCall } from "react-icons/md";
+import Socials from "../Components/Socials";
 
 const Contact = () => {
     const container = {
@@ -29,48 +30,44 @@ const Contact = () => {
             <h1>Contact</h1>
             <motion.div variants={container} initial="hidden" animate="show">
                 <motion.p variants={listItem}>
+                    <h4>
+                        <a href="tel:+11234567890">
+                            <MdCall
+                                fontSize={20}
+                                style={{
+                                    verticalAlign: "middle",
+                                    marginRight: "4px",
+                                }}
+                            />
+                            +1123 456 7890
+                        </a>
+                    </h4>
+                </motion.p>
+                <motion.p variants={listItem}>
+                    <h4>
+                        <a href="mailto:hello@pathway.com">
+                            <MdEmail
+                                fontSize={20}
+                                style={{
+                                    verticalAlign: "middle",
+                                    marginRight: "4px",
+                                }}
+                            />
+                            hello@pathway.com
+                        </a>
+                    </h4>
+                </motion.p>
+
+                <motion.p variants={listItem}>
                     We are always happy to hear from you! <br /> If you have any
                     questions or comments, please feel free to reach out to us.
                 </motion.p>
                 <motion.p variants={listItem}>
-                    <h4>
-                        <MdCall
-                            fontSize={20}
-                            style={{
-                                verticalAlign: "middle",
-                                marginRight: "4px",
-                            }}
-                        />
-                        +1123 456 7890
-                    </h4>
-                </motion.p>
-                <motion.p variants={listItem}>
-                    <h4>
-                        <MdEmail
-                            fontSize={20}
-                            style={{
-                                verticalAlign: "middle",
-                                marginRight: "4px",
-                            }}
-                        />
-                        hello@pathway.com
-                    </h4>
-                </motion.p>
-                <motion.p variants={listItem}>
-                    <h4>
-                        <MdEmail
-                            fontSize={20}
-                            style={{
-                                verticalAlign: "middle",
-                                marginRight: "4px",
-                            }}
-                        />
-                        volunteer@pathway.com
-                    </h4>
-                </motion.p>
-                <motion.p variants={listItem}>
                     Thank you for your support!
                 </motion.p>
+                <motion.div variants={listItem}>
+                    <Socials />
+                </motion.div>
             </motion.div>
         </motion.div>
     );

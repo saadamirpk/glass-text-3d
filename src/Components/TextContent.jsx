@@ -146,7 +146,7 @@ export default function TextContent({ text3dVisible }) {
                     <meshPhysicalMaterial
                         ref={materialRef2}
                         emissive={"#ff9064"}
-                        emissiveIntensity={0.8}
+                        emissiveIntensity={2}
                         reflectivity={0.1}
                         thickness={5}
                         roughness={0.1}

@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 
 export default function ThreeCanvas() {
     let location = useLocation();
+
     const [text3dVisible, setText3dVisible] = useState(false);
     useEffect(() => {
         if (location.pathname === "/") {
@@ -14,6 +15,7 @@ export default function ThreeCanvas() {
             setText3dVisible(false);
         }
     }, [location]);
+
     return (
         <>
             <Canvas camera={{ position: [0, 0, 10] }}>

@@ -50,18 +50,12 @@ const About = () => {
                     rural students and believe that this will help create a
                     better future for our communities.
                 </motion.p>
-                <motion.p variants={listItem}>
-                    We invite you to join us in our mission to provide quality
-                    education to all students in rural areas. By supporting our
-                    cause, you can help us make sure that no student is left
-                    behind. Together, we can make a difference.
-                </motion.p>
                 <motion.div variants={listItem}>
                     <Player
                         autoplay
                         loop
                         src="https://assets3.lottiefiles.com/packages/lf20_zi361grc.json"
-                        style={{ height: "300px", width: "400px" }}
+                        style={{ height: "300px", width: "300px" }}
                     >
                         <Controls visible={false} />
                     </Player>

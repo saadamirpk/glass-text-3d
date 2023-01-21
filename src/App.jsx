@@ -1,4 +1,4 @@
-import { react } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ThreeCanvas from "./Components/ThreeCanvas";
 import Screen from "./Components/Screen";
