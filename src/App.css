@@ -127,7 +127,7 @@ h1 {
 }
 
 .card {
-    background-color: dodgerblue;
+    background: rgba(255, 144, 100, 0.8);
     color: white;
     height: 250px;
 }
