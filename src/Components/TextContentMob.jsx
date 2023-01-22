@@ -1,0 +1,170 @@
+import React, { useRef, useEffect, useState } from "react";
+import { extend } from "@react-three/fiber";
+import * as THREE from "three";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+import { useFrame } from "@react-three/fiber";
+import helvetiker from "three/examples/fonts/helvetiker_bold.typeface.json";
+import gentilis from "three/examples/fonts/gentilis_regular.typeface.json";
+import gsap from "gsap";
+
+export default function TextContentMob({ text3dVisible }) {
+    const ref = useRef();
+    const materialRef = useRef();
+    const materialRef2 = useRef();
+
+    useFrame((state) => {
+        ref.current.rotation.y = THREE.MathUtils.lerp(
+            ref.current.rotation.y,
+            (-state.mouse.x * Math.PI) / 20,
+            0.05
+        );
+        ref.current.rotation.x = THREE.MathUtils.lerp(
+            ref.current.rotation.x,
+            (state.mouse.y * Math.PI) / 20,
+            0.05
+        );
+    });
+
+    const [material, setMaterial] = useState();
+
+    useEffect(() => {
+        if (ref && materialRef && materialRef2) {
+            setMaterial(materialRef.current);
+
+            if (text3dVisible) {
+                gsap.fromTo(
+                    [materialRef.current, materialRef2.current],
+                    { opacity: 0 },
+                    {
+                        delay: 0.5,
+                        opacity: 1,
+                        duration: 1.5,
+                        ease: "back.out(2)",
+                    }
+                );
+                gsap.fromTo(
+                    ref.current.position,
+                    {
+                        y: -2,
+                    },
+                    {
+                        y: 3,
+                        duration: 1.5,
+                        ease: "back.out(2)",
+                        delay: 0.5,
+                    }
+                );
+            } else {
+                gsap.to([materialRef.current, materialRef2.current], {
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power3.out",
+                });
+                gsap.to(ref.current.position, {
+                    y: -2,
+                    duration: 0.3,
+                    ease: "power3.out",
+                });
+            }
+        }
+    }, [ref, materialRef, materialRef2, text3dVisible]);
+
+    const farTextHeight = 2.5;
+    extend({ TextGeometry });
+    const helvetiker_bold = new FontLoader().parse(helvetiker);
+    const gentilis_bold = new FontLoader().parse(gentilis);
+
+    const textOptions = {
+        font: helvetiker_bold,
+        size: 0.5,
+        height: 0.01,
+    };
+    const textOptionsForward = {
+        font: gentilis_bold,
+        size: 0.3,
+        height: 0.5,
+    };
+
+    return (
+        <group ref={ref}>
+            <meshLambertMaterial
+                ref={materialRef}
+                color={"black"}
+                opacity={0}
+                transparent={true}
+            />
+            {material && (
+                <>
+                    <mesh
+                        material={material}
+                        position={[-7, farTextHeight, -15]}
+                        rotation={[0, 0, 0]}
+                    >
+                        <textGeometry
+                            attach="geometry"
+                            args={[
+                                "Empowering Individuals to Achieve Their",
+                                textOptions,
+                            ]}
+                        />
+                    </mesh>
+                    <mesh
+                        position={[-8, 0, -15]}
+                        rotation={[0, 0, 0]}
+                        material={material}
+                    >
+                        <textGeometry
+                            attach="geometry"
+                            args={[
+                                "Greatest                                                     Potential",
+                                textOptions,
+                            ]}
+                        />
+                    </mesh>
+                    <mesh
+                        position={[-9, -farTextHeight, -15]}
+                        rotation={[0, 0, 0]}
+                        material={material}
+                    >
+                        <textGeometry
+                            attach="geometry"
+                            args={[
+                                "Through Innovative Learning Programs and Support.",
+                                textOptions,
+                            ]}
+                        />
+                    </mesh>
+                </>
+            )}
+            <mesh position={[-1.5, -2, 0]} rotation={[0, 0, 0]}>
+                <textGeometry
+                    attach="geometry"
+                    args={["CREATE THE WAY", textOptionsForward]}
+                />
+                {text3dVisible ? (
+                    <meshPhysicalMaterial
+                        ref={materialRef2}
+                        emissive={"#ff9064"}
+                        emissiveIntensity={2}
+                        reflectivity={0.1}
+                        thickness={5}
+                        roughness={0.1}
+                        clearcoat={1}
+                        clearcoatRoughness={0}
+                        transmission={1}
+                        ior={1.25}
+                        opacity={0}
+                        transparent={true}
+                    />
+                ) : (
+                    <meshLambertMaterial
+                        color={"black"}
+                        opacity={0}
+                        transparent={true}
+                    />
+                )}
+            </mesh>
+        </group>
+    );
+}

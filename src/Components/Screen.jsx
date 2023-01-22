@@ -5,31 +5,13 @@ import NavLinks from "./NavLinks";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 
-const Screen = () => {
+const Screen = ({ windowSize }) => {
     const location = useLocation();
     const [menuOpen, setMenuOpen] = useState(false);
 
     const newLinkOpened = () => {
         setMenuOpen(false);
     };
-
-    const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
-    });
-    useEffect(() => {
-        function handleResize() {
-            // Set window width/height to state
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-        window.addEventListener("resize", handleResize);
-        // Call handler right away so state gets updated with initial window size
-        handleResize();
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
     return (
         <div className="overlay">
@@ -57,10 +39,12 @@ const Screen = () => {
                                 }
                             >
                                 <div className="splash-menu">
-                                    <NavLinks
-                                        isSplashStyle={true}
-                                        isClicked={newLinkOpened}
-                                    />
+                                    {menuOpen && (
+                                        <NavLinks
+                                            isSplashStyle={true}
+                                            isClicked={newLinkOpened}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <div className="splash-icon">
@@ -95,7 +79,7 @@ const Screen = () => {
                     <a
                         href="https://www.linkedin.com/in/saad-amir"
                         target="_blank"
-                        style={{ opacity: "0.6" }}
+                        style={{ opacity: 0.2 }}
                     >
                         Saad Amir
                     </a>

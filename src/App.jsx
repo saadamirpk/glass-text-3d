@@ -12,19 +12,35 @@ import "./App.css";
 function App() {
     const location = useLocation();
 
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
+    useEffect(() => {
+        function handleResize() {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
         <div className="App">
             <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
-                    <Route path="/" />
+                    <Route path="/" element={<></>} />
                     <Route path="/about" element={<About />} />
                     <Route path="/programs" element={<Programs />} />
                     <Route path="/donate" element={<Donate />} />
                     <Route path="/contact" element={<Contact />} />
                 </Routes>
             </AnimatePresence>
-            <ThreeCanvas />
-            <Screen />
+            <ThreeCanvas windowSize={windowSize} />
+            <Screen windowSize={windowSize} />
         </div>
     );
 }

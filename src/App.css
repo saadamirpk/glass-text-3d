@@ -81,13 +81,14 @@ a {
     pointer-events: all;
     font-weight: 500;
     color: #ff9064;
+    opacity: 0.6;
     text-decoration: inherit;
 }
 
 a:hover {
     cursor: pointer;
     text-decoration: none;
-    color: #f5703b;
+    opacity: 1;
 }
 
 h1 {
@@ -275,6 +276,7 @@ p {
     z-index: 10;
     top: 0;
     right: 0;
+    pointer-events: all;
 }
 
 .splash-icon {
